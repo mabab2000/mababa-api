@@ -1,0 +1,4 @@
+# Render deploys using this file to start the FastAPI app
+# Use: uvicorn chat_api:app --host 0.0.0.0 --port 10000
+
+start: uvicorn chat_api:app --host 0.0.0.0 --port $PORT

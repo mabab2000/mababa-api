@@ -1,0 +1,4 @@
+# requirements.txt for FastAPI WebSocket Chat App
+fastapi
+uvicorn[standard]
+pydantic==1.10.13
