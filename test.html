@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Student Registration</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 400px;
+      margin: 40px auto;
+    }
+    label {
+      display: block;
+      margin-top: 12px;
+    }
+    input, select, button {
+      width: 100%;
+      padding: 8px;
+      margin-top: 4px;
+    }
+    button {
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .message {
+      margin-top: 15px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Student Registration</h2>
+
+  <form id="studentForm">
+    <label>
+      First Name
+      <input type="text" name="firstname" required />
+    </label>
+
+    <label>
+      Last Name
+      <input type="text" name="lastname" required />
+    </label>
+
+    <label>
+      Mother Name
+      <input type="text" name="mothername" required />
+    </label>
+
+    <label>
+      Father Name
+      <input type="text" name="fathername" required />
+    </label>
+
+    <label>
+      Age
+      <input type="number" name="age" required />
+    </label>
+
+    <label>
+      Gender
+      <select name="gender" required>
+        <option value="">Select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+      </select>
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <div class="message" id="result"></div>
+
+  <script>
+    document.getElementById("studentForm").addEventListener("submit", async (e) => {
+      e.preventDefault();
+
+      const form = e.target;
+
+      const data = {
+        firstname: form.firstname.value,
+        lastname: form.lastname.value,
+        mothername: form.mothername.value,
+        fathername: form.fathername.value,
+        age: Number(form.age.value),
+        gender: form.gender.value
+      };
+
+      try {
+        const response = await fetch("https://chat.mababa.app/students", {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        const result = await response.json();
+
+        document.getElementById("result").textContent =
+          response.ok ? result.message : "Submission failed";
+      } catch (error) {
+        document.getElementById("result").textContent =
+          "Network error. Please try again.";
+      }
+    });
+  </script>
+
+</body>
+</html>
